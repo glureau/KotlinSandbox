@@ -13,10 +13,10 @@ object KotlinEnumDemo {
     }
 
     @JvmStatic fun main(args: Array<String>) {
-        for (st in REQUEST_STATUS.values) {
+        for (st in REQUEST_STATUS.values()) {
             println(st)
         }
-        for (st in HTTP_ADVANCED_STATUS.values) {
+        for (st in HTTP_ADVANCED_STATUS.values()) {
             println("${st.code} -> ${st.meaning}")
         }
     }
