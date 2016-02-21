@@ -32,8 +32,8 @@ class CommandInterpreter() {
         return false
     }
 
-    private fun searchClosestEmbeddableItem(currentRoom: Room, itemName: String): Pair<Int, EmbeddableItem?> {
-        if (currentRoom.items.isNotEmpty()) {
+    private fun searchClosestEmbeddableItem(currentRoom: Room?, itemName: String): Pair<Int, EmbeddableItem?> {
+        if (currentRoom != null && currentRoom.items.isNotEmpty()) {
             val item = currentRoom.items.filter { it is EmbeddableItem }.minBy { levenshteinCaseInsensitive(it.name(), itemName) } as EmbeddableItem
             return Pair(levenshteinCaseInsensitive(item.name(), itemName), item)
         }

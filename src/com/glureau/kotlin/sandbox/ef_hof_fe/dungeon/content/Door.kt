@@ -22,13 +22,12 @@ class Door(val narrative: String = "undefined", val left: Room, val right: Room,
         error("Door not available in the user current room")
     }
 
-    @Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER")
     fun use(user: User): Room {
 
-        var roomSrc = user.currentRoom()
+        var roomSrc: Room? = user.currentRoom()
 
         // Determine the destination room
-        var roomDest = Room.NOT_INITIALIZED
+        var roomDest: Room? = null
         if (roomSrc == left) {
             roomDest = right
         } else if (roomSrc == right) {
@@ -41,6 +40,7 @@ class Door(val narrative: String = "undefined", val left: Room, val right: Room,
             // Success
             return roomDest
         }
+
         // Failure
         return roomSrc
     }

@@ -12,8 +12,8 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
  */
 class User() {
 
-    private var currentDungeon: Dungeon = Dungeon.NOT_INITIALIZED
-    private var currentRoom: Room = Room.NOT_INITIALIZED
+    private var currentDungeon: Dungeon? = null
+    private var currentRoom: Room? = null
     private var inventory: MutableList<EmbeddableItem> = arrayListOf()
 
 
@@ -24,7 +24,7 @@ class User() {
     }
 
     fun hasFinishedCurrentDungeon(): Boolean {
-        return currentDungeon.endRoom() == currentRoom
+        return currentDungeon?.endRoom() == currentRoom
     }
 
     fun narrate() {
@@ -33,6 +33,9 @@ class User() {
         if (inventory.isNotEmpty()) {
             println("Inventory: ${inventory.joinToString(separator = ",", transform = { it.name() })}")
         }
+
+        // this.currentRoom is mutable and we want to avoid unneeded synchronization, so local copy to work on a snapshot.
+        var currentRoom: Room = currentRoom ?: return
         println(currentRoom.narrative)
         if (currentRoom.items.isNotEmpty()) {
             println("The room contains:")
@@ -70,7 +73,7 @@ class User() {
         inventory.add(item)
     }
 
-    fun currentRoom(): Room {
+    fun currentRoom(): Room? {
         return currentRoom
     }
 

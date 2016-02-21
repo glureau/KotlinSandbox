@@ -19,8 +19,12 @@ object Main {
                 item("yellow stone", "There is a yellow stone on the ground")
             })
             door("big dark door", r1, r2, Direction.NORTH, { roomSrc, roomDest -> user.has(key)})
+
+            val endRoom = room("", "")
+            door("last door", r2, endRoom, Direction.EAST, { roomSrc, roomDest -> user.has(key)})
+
             startsWith(r1)
-            endsWith(r2)
+            endsWith(endRoom)
         }).build()
 
         user.startDungeon(dungeon)

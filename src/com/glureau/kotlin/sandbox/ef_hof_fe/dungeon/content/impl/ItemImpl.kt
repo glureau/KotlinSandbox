@@ -1,4 +1,6 @@
-package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content
+package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.impl
+
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
 
 /**
  *
