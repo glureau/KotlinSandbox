@@ -10,18 +10,18 @@ object Main {
 
         val dungeon = DungeonBuilder("Dark Dungeon", {
             val key = item("key", "A key")
-            val r1 = room("room1", "You are in a large corridor of gray stones, covered with mold.", {
+            val r1 = room("You are in a large corridor of gray stones, covered with mold.", {
                 item("black stone", "There is a black stone on the ground")
                 item("barrel", "There is a barrel on the ground")
                 add(key)
             })
-            val r2 = room("room2", "Well done! You're in the room 2", {
+            val r2 = room("You entered in a great room with white and black stones everywhere.", {
                 item("yellow stone", "There is a yellow stone on the ground")
             })
-            door("big dark door", r1, r2, Direction.NORTH, { roomSrc, roomDest -> user.has(key)})
+            door("a big dark door", r1, r2, Direction.NORTH, { roomSrc, roomDest -> user.has(key)})
 
-            val endRoom = room("", "")
-            door("last door", r2, endRoom, Direction.EAST, { roomSrc, roomDest -> user.has(key)})
+            val endRoom = room("Well done! You're in the last room of this dungeon.")
+            door("THE last door", r2, endRoom, Direction.EAST, { roomSrc, roomDest -> user.has(key)})
 
             startsWith(r1)
             endsWith(endRoom)

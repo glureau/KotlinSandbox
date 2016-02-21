@@ -13,13 +13,15 @@ class Door(val narrative: String = "undefined", val left: Room, val right: Room,
     }
 
     fun narrative(user: User): String {
+        var d: Direction? = null
         if (user.currentRoom() == left) {
-            return "In the $dir of the room: $narrative"
+            d = dir
+        } else if (user.currentRoom() == right) {
+            d = dir.opposite()
+        } else {
+            error("Door not available in the user current room")
         }
-        if (user.currentRoom() == right) {
-            return "In the ${dir.opposite()} of the room: $narrative"
-        }
-        error("Door not available in the user current room")
+        return "In the $d of the room, you can see $narrative"
     }
 
     fun use(user: User): Room {

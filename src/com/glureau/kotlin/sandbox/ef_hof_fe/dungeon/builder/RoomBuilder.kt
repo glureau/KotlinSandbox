@@ -9,7 +9,7 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
  *
  * Created by Greg on 24/01/2016.
  */
-data class RoomBuilder(val name: String = "unnamed", val narrative: String = "undefined", val init: RoomBuilder.() -> Any = {}) {
+data class RoomBuilder(val narrative: String = "undefined", val init: RoomBuilder.() -> Any = {}) {
     companion object {
         val NOT_INITIALIZED = RoomBuilder()
     }
@@ -38,7 +38,7 @@ data class RoomBuilder(val name: String = "unnamed", val narrative: String = "un
     }
 
     fun build(): MutableRoom {
-        return RoomImpl(name, narrative, items)
+        return RoomImpl(narrative, items)
     }
 }
 

@@ -9,7 +9,6 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder.MutableRoom
  * Created by Greg on 24/01/2016.
  */
 data class RoomImpl(
-        override val name: String,
         override val narrative: String,
         override val items: MutableList<Item> = arrayListOf(),
         override val doors: MutableList<Door> = arrayListOf()

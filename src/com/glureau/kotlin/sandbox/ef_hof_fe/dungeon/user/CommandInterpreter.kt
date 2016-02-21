@@ -13,19 +13,19 @@ class CommandInterpreter() {
     fun interpret(user: User, command: String): Boolean {
         var verb = command.substringBefore(" ");
         var directObject = command.substringAfter(" ");
-
-        var currentRoom = user.currentRoom()
-        var (itemScore, itemSelected) = searchClosestEmbeddableItem(currentRoom, directObject)
-        var (dirScore, dirSelected) = searchClosestDirection(directObject)
-
-
         var action = UserAction.values().minBy { searchClosestString(it.actions, verb).first }
         if (action != null) {
             var actionScore = searchClosestString(action.actions, verb).first;
             if (actionScore <= 1) {
-                action.act(user, currentRoom, itemSelected, dirSelected)
-//                println("action: $action ($actionScore) / item: $itemSelected ($itemScore) / direction: $dirSelected ($dirScore)")
-                return true
+
+                var currentRoom = user.currentRoom()
+                var (itemScore, itemSelected) = searchClosestEmbeddableItem(currentRoom, directObject)
+                var (dirScore, dirSelected) = searchClosestDirection(directObject)
+
+                if (itemScore <= 1 || dirScore <= 1) {
+                    action.act(user, currentRoom, itemSelected, dirSelected)
+                    return true
+                }
             }
         }
 

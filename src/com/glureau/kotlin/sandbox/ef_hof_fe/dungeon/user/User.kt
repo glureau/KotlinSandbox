@@ -29,14 +29,16 @@ class User() {
 
     fun narrate() {
         println()
-        println("-----------------------------------")
+        lineSeparation()
         if (inventory.isNotEmpty()) {
             println("Inventory: ${inventory.joinToString(separator = ",", transform = { it.name() })}")
+            lineSeparation()
         }
 
         // this.currentRoom is mutable and we want to avoid unneeded synchronization, so local copy to work on a snapshot.
         var currentRoom: Room = currentRoom ?: return
         println(currentRoom.narrative)
+        lineSeparation()
         if (currentRoom.items.isNotEmpty()) {
             println("The room contains:")
             for (item in currentRoom.items) {
@@ -46,14 +48,22 @@ class User() {
                     println("- ${item.name()}")
                 }
             }
+            lineSeparation()
         }
         for (door in currentRoom.doors) {
             println(door.narrative(this))
         }
+        if (currentRoom.doors.isNotEmpty()) {
+            lineSeparation()
+        }
+    }
+
+    private fun lineSeparation() {
+        println("-------------------------------------------------------")
     }
 
     fun retrieveUserAction() {
-        println("User action>")
+        print("Action> ")
         var operation = readLine();
         var operationInterpreted = false;
         if (operation != null) {
@@ -66,6 +76,7 @@ class User() {
     }
 
     fun finishDungeon() {
+        narrate()
         print("Well done! It's finished for today!")
     }
 

@@ -36,8 +36,8 @@ data class DungeonBuilder(val name: String, val init: DungeonBuilder.() -> Any =
         return this
     }
 
-    fun room(name: String, narrative: String, init: RoomBuilder.() -> Any = {}): RoomBuilder {
-        val room = RoomBuilder(name, narrative, init)
+    fun room(narrative: String, init: RoomBuilder.() -> Any = {}): RoomBuilder {
+        val room = RoomBuilder(narrative, init)
         roomBuilders.add(room)
         return room
     }
