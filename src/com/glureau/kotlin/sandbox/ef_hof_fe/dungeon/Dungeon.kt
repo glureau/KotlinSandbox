@@ -6,9 +6,9 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Room
  *
  * Created by Greg on 24/01/2016.
  */
-public class Dungeon(val rooms: Set<Room>, val startRoom: Room, val endRoom: Room) {
+public class Dungeon(val name: String, val rooms: Set<Room>, val startRoom: Room, val endRoom: Room) {
     companion object {
-        val NOT_INITIALIZED = Dungeon(setOf(Room.NOT_INITIALIZED), Room.NOT_INITIALIZED, Room.NOT_INITIALIZED)
+        val NOT_INITIALIZED = Dungeon("", setOf(Room.NOT_INITIALIZED), Room.NOT_INITIALIZED, Room.NOT_INITIALIZED)
     }
 
     init {

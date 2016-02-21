@@ -4,6 +4,7 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.Dungeon
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Door
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Room
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.ActionnableItem
 
 /**
  *
@@ -19,25 +20,49 @@ class User() {
     fun startDungeon(dungeon: Dungeon) {
         currentDungeon = dungeon;
         currentRoom = dungeon.startRoom()
+        println("Welcome in the ${dungeon.name}")
     }
 
     fun hasFinishedCurrentDungeon(): Boolean {
         return currentDungeon.endRoom() == currentRoom
     }
 
-    fun narrateCurrentRoom() {
+    fun narrate() {
+        println()
+        println("-----------------------------------")
+        if (inventory.isNotEmpty()) {
+            println("Inventory: ${inventory.joinToString(separator = ",", transform= { it.name() })}")
+        }
         println(currentRoom.narrative)
+        println("The room contains:")
+        for (item in currentRoom.items) {
+            if (item is ActionnableItem) {
+                println("- ${item.name()} (${item.actions()})")
+            } else {
+                println("- ${item.name()}")
+            }
+        }
     }
 
     fun retrieveUserAction() {
         println("User action>")
         var operation = readLine();
-        println(operation)
-//        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var operationInterpreted = false;
+        if (operation != null) {
+            operationInterpreted = CommandInterpreter().interpret(this, operation)
+        }
+
+        if (!operationInterpreted) {
+            println("Please try a valid command")
+        }
     }
 
     fun finishDungeon() {
         print("Well done! It's finished for today!")
+    }
+
+    fun take(item: Item) {
+        inventory.add(item)
     }
 
     fun currentRoom(): Room {

@@ -1,16 +1,15 @@
 package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon
 
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder.DungeonBuilder
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.user.User
 
 object Main {
     @JvmStatic fun main(args: Array<String>) {
         val user = User()
 
-        val dungeon = DungeonBuilder({
-            val key = Item("key r1<->r2", "A key")
-            val r1 = room("room1", "Welcome in the Dark Dungeon", {
+        val dungeon = DungeonBuilder("Dark Dungeon", {
+            val key = item("key", "A key")
+            val r1 = room("room1", "You are in a large corridor of gray stones, covered with mold.", {
                 item("black stone", "There is a black stone on the ground")
                 item("barrel", "There is a barrel on the ground")
                 add(key)
@@ -25,7 +24,7 @@ object Main {
 
         user.startDungeon(dungeon)
         while (!user.hasFinishedCurrentDungeon()) {
-            user.narrateCurrentRoom()
+            user.narrate()
             user.retrieveUserAction()
         }
         user.finishDungeon()

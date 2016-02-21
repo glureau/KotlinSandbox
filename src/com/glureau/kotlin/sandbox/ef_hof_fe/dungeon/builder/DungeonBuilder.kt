@@ -2,17 +2,21 @@ package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder
 
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.Dungeon
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Door
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.ItemImpl
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Room
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.ActionnableItem
 
 /**
  *
  * Created by Greg on 24/01/2016.
  */
-data class DungeonBuilder(val init: DungeonBuilder.() -> Any = {}) {
+data class DungeonBuilder(val name:String, val init: DungeonBuilder.() -> Any = {}) {
     private var startRoom: Room = Room.NOT_INITIALIZED
     private var endRoom: Room = Room.NOT_INITIALIZED
 
     val rooms: MutableSet<Room>
+
     init {
         rooms = hashSetOf()
         init()
@@ -44,8 +48,11 @@ data class DungeonBuilder(val init: DungeonBuilder.() -> Any = {}) {
         return door
     }
 
+    fun item(name: String, narrative: String): Item {
+        return ActionnableItem(ItemImpl(name, narrative))
+    }
+
     fun build(): Dungeon {
-        print(this)
-        return Dungeon(rooms, startRoom, endRoom)
+        return Dungeon(name, rooms, startRoom, endRoom)
     }
 }
