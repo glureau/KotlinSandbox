@@ -1,6 +1,7 @@
 package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon
 
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder.DungeonBuilder
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Direction
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.user.User
 
 object Main {
@@ -17,7 +18,7 @@ object Main {
             val r2 = room("room2", "Well done! You're in the room 2", {
                 item("yellow stone", "There is a yellow stone on the ground")
             })
-            door("big dark door", r1, r2, {roomSrc, roomDest -> user.has(key)})
+            door("big dark door", r1, r2, Direction.NORTH, { roomSrc, roomDest -> user.has(key)})
             startsWith(r1)
             endsWith(r2)
         }).build()

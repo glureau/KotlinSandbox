@@ -14,16 +14,16 @@ public class Dungeon(val name: String, val rooms: Set<Room>, val startRoom: Room
     init {
         if (!rooms.contains(startRoom)) {
             if (startRoom == Room.NOT_INITIALIZED) {
-                throw IllegalArgumentException("startRoom should be set")
+                error("startRoom should be set")
             } else {
-                throw IllegalArgumentException("startRoom should be an existing room in this dungeon.")
+                error("startRoom should be an existing room in this dungeon.")
             }
         }
         if (!rooms.contains(endRoom)) {
             if (endRoom == Room.NOT_INITIALIZED) {
-                throw IllegalArgumentException("startRoom should be set")
+                error("endRoom should be set")
             } else {
-                throw IllegalArgumentException("endRoom should be an existing room in this dungeon.")
+                error("endRoom should be an existing room in this dungeon.")
             }
         }
     }

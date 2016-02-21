@@ -1,6 +1,6 @@
 package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content
 
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.ActionnableItem
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
 
 /**
  *
@@ -11,15 +11,15 @@ data class Room(val name: String = "unnamed", val narrative: String = "undefined
         val NOT_INITIALIZED = Room()
     }
 
-    val items: MutableList<Item>
+    val items: MutableList<Item> = arrayListOf()
+    val doors: MutableList<Door> = arrayListOf()
 
     init {
-        items = arrayListOf()
         init()
     }
 
     fun item(name: String, narrative: String): Item {
-        var item = ActionnableItem(ItemImpl(name, narrative))
+        var item = EmbeddableItem(ItemImpl(name, narrative))
         items.add(item)
         return item
     }
@@ -31,6 +31,11 @@ data class Room(val name: String = "unnamed", val narrative: String = "undefined
 
     fun remove(item: Item) {
         items.remove(item)
+    }
+
+    fun add(door: Door): Room {
+        doors.add(door)
+        return this
     }
 }
 

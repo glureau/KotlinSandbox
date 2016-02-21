@@ -4,7 +4,7 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.Dungeon
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Door
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Room
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.ActionnableItem
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
 
 /**
  *
@@ -14,7 +14,7 @@ class User() {
 
     private var currentDungeon: Dungeon = Dungeon.NOT_INITIALIZED
     private var currentRoom: Room = Room.NOT_INITIALIZED
-    private var inventory: MutableList<Item> = arrayListOf()
+    private var inventory: MutableList<EmbeddableItem> = arrayListOf()
 
 
     fun startDungeon(dungeon: Dungeon) {
@@ -31,16 +31,21 @@ class User() {
         println()
         println("-----------------------------------")
         if (inventory.isNotEmpty()) {
-            println("Inventory: ${inventory.joinToString(separator = ",", transform= { it.name() })}")
+            println("Inventory: ${inventory.joinToString(separator = ",", transform = { it.name() })}")
         }
         println(currentRoom.narrative)
-        println("The room contains:")
-        for (item in currentRoom.items) {
-            if (item is ActionnableItem) {
-                println("- ${item.name()} (${item.actions()})")
-            } else {
-                println("- ${item.name()}")
+        if (currentRoom.items.isNotEmpty()) {
+            println("The room contains:")
+            for (item in currentRoom.items) {
+                if (item is EmbeddableItem) {
+                    println("- ${item.name()} (${UserAction.TAKE.defaultAction} ?)")
+                } else {
+                    println("- ${item.name()}")
+                }
             }
+        }
+        for (door in currentRoom.doors) {
+            println(door.narrative(this))
         }
     }
 
@@ -61,7 +66,7 @@ class User() {
         print("Well done! It's finished for today!")
     }
 
-    fun take(item: Item) {
+    fun take(item: EmbeddableItem) {
         inventory.add(item)
     }
 
@@ -69,8 +74,13 @@ class User() {
         return currentRoom
     }
 
-    fun use(door: Door) {
-        door.use(this)
+    fun use(door: Door): Boolean {
+        val newRoom = door.use(this)
+        if (newRoom != currentRoom) {
+            currentRoom = newRoom
+            return true
+        }
+        return false
     }
 
     fun has(item: Item): Boolean {

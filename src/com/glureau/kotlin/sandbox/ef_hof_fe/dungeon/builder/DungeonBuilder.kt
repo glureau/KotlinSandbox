@@ -1,17 +1,14 @@
 package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder
 
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.Dungeon
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Door
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.ItemImpl
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Room
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.ActionnableItem
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.*
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
 
 /**
  *
  * Created by Greg on 24/01/2016.
  */
-data class DungeonBuilder(val name:String, val init: DungeonBuilder.() -> Any = {}) {
+data class DungeonBuilder(val name: String, val init: DungeonBuilder.() -> Any = {}) {
     private var startRoom: Room = Room.NOT_INITIALIZED
     private var endRoom: Room = Room.NOT_INITIALIZED
 
@@ -43,13 +40,15 @@ data class DungeonBuilder(val name:String, val init: DungeonBuilder.() -> Any = 
         return room
     }
 
-    fun door(narrative: String, roomA: Room, roomB: Room, validation: Door.(Room, Room) -> Boolean): Door {
-        var door = Door(narrative, roomA, roomB, validation)
+    fun door(narrative: String, roomA: Room, roomB: Room, dir: Direction, validation: Door.(Room, Room) -> Boolean): Door {
+        var door = Door(narrative, roomA, roomB, dir, validation)
+        roomA.add(door)
+        roomB.add(door)
         return door
     }
 
     fun item(name: String, narrative: String): Item {
-        return ActionnableItem(ItemImpl(name, narrative))
+        return EmbeddableItem(ItemImpl(name, narrative))
     }
 
     fun build(): Dungeon {
