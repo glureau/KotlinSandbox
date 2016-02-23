@@ -5,7 +5,6 @@ import com.glureau.kotlin.sandbox.dojos.dungeon.content.Direction
 import com.glureau.kotlin.sandbox.dojos.dungeon.content.Door
 import com.glureau.kotlin.sandbox.dojos.dungeon.content.Item
 import com.glureau.kotlin.sandbox.dojos.dungeon.content.Room
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.*
 import com.glureau.kotlin.sandbox.dojos.dungeon.content.impl.ItemImpl
 import com.glureau.kotlin.sandbox.dojos.dungeon.interaction.BreakableItem
 import com.glureau.kotlin.sandbox.dojos.dungeon.interaction.EmbeddableItem
@@ -57,7 +56,7 @@ data class DungeonBuilder(val name: String, val init: DungeonBuilder.() -> Any =
         return EmbeddableItem(ItemImpl(name, narrative))
     }
 
-    fun breakableItem(name: String, narrative: String, itemsInside : Collection<Item> = listOf()): Item {
+    fun breakableItem(name: String, narrative: String, itemsInside: Collection<Item> = listOf()): Item {
         return BreakableItem(ItemImpl(name, narrative), itemsInside)
     }
 
@@ -70,7 +69,7 @@ data class DungeonBuilder(val name: String, val init: DungeonBuilder.() -> Any =
         var startRoom: Room? = null
         var endRoom: Room? = null
 
-        var builderToRoom : MutableMap<RoomBuilder, MutableRoom> = hashMapOf()
+        var builderToRoom: MutableMap<RoomBuilder, MutableRoom> = hashMapOf()
         for (roomBuilder in roomBuilders) {
             val room = roomBuilder.build()
             rooms.add(room)

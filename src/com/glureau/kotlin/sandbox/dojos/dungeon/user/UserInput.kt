@@ -7,21 +7,30 @@ import com.glureau.kotlin.sandbox.dojos.dungeon.interaction.EmbeddableItem
 import java.util.*
 
 /**
- *
+ * Tools to easily handle a user input.
  * Created by Greg on 22/02/2016.
  */
 data class UserInput(val verb: String, val directObject: String?) {
     companion object {
-        val LEVENSHTEIN_THRESHOLD = 1
+        private val LEVENSHTEIN_THRESHOLD = 1
+        private val COMMAND_SEPARATOR = " "
+
+        fun prepare(command: String): UserInput {
+            var separatorPos = command.trim().indexOf(COMMAND_SEPARATOR)
+            var verb = command.trim().substringBefore(COMMAND_SEPARATOR);
+            var directObject: String? = null
+            if (separatorPos > 0) {
+                directObject = command.trim().substringAfter(COMMAND_SEPARATOR);
+            }
+            return UserInput(verb, directObject)
+        }
     }
 
     private val userAction: UserAction? = UserAction.values().minByWithLimit({ searchClosestString(it.actionNames, verb).first }, LEVENSHTEIN_THRESHOLD)
 
-    fun act(user: User): Boolean {
-        if (userAction != null) {
-            return userAction.act(user, this)
-        }
-        return false
+    fun act(user: User) {
+        if (userAction == null) throw BadUserInputException("Input '$verb' is not a known verb (${UserAction.values().joinToString(separator = ", ", transform = { it.name })})")
+        userAction.act(user, this)
     }
 
     fun direction(): Direction? {

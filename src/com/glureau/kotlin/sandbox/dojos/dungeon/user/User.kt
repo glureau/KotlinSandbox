@@ -4,7 +4,6 @@ import com.glureau.kotlin.sandbox.dojos.dungeon.Dungeon
 import com.glureau.kotlin.sandbox.dojos.dungeon.content.Door
 import com.glureau.kotlin.sandbox.dojos.dungeon.content.Item
 import com.glureau.kotlin.sandbox.dojos.dungeon.content.Room
-import com.glureau.kotlin.sandbox.dojos.dungeon.interaction.BreakableItem
 import com.glureau.kotlin.sandbox.dojos.dungeon.interaction.EmbeddableItem
 
 /**
@@ -17,12 +16,13 @@ class User() {
     private var currentDungeon: Dungeon? = null
     private var currentRoom: Room? = null
     var inventory: MutableList<EmbeddableItem> = arrayListOf()
+    private val narrator = Narrator()
 
 
     fun startDungeon(dungeon: Dungeon) {
         currentDungeon = dungeon;
         currentRoom = dungeon.startRoom()
-        println("Welcome in the ${dungeon.name}")
+        narrator.startDungeon(dungeon)
     }
 
     fun hasFinishedCurrentDungeon(): Boolean {
@@ -30,57 +30,26 @@ class User() {
     }
 
     fun narrate() {
-        println()
-        lineSeparation()
-        if (inventory.isNotEmpty()) {
-            println("Inventory: ${inventory.joinToString(separator = ", ", transform = { it.name })}")
-            lineSeparation()
-        }
-
-        // this.currentRoom is mutable and we want to avoid unneeded synchronization, so local copy to work on a snapshot.
-        var currentRoom: Room = currentRoom ?: return
-        println(currentRoom.narrative)
-        lineSeparation()
-        if (currentRoom.items.isNotEmpty()) {
-            println("The room contains:")
-            for (item in currentRoom.items) {
-                if (item is EmbeddableItem) {
-                    println("- ${item.narrative} (${UserAction.TAKE.defaultActionName} ${item.name}?)")
-                } else if (item is BreakableItem) {
-                    println("- ${item.narrative} (${UserAction.BREAK.defaultActionName} ${item.name}?)")
-                } else {
-                    println("- ${item.narrative}")
-                }
-            }
-            lineSeparation()
-        }
-        for (door in currentRoom.doors) {
-            println("${door.narrative(this)} (${UserAction.GO.defaultActionName} ${door.directionFrom(currentRoom)}?)")
-        }
-        if (currentRoom.doors.isNotEmpty()) {
-            lineSeparation()
-        }
-    }
-
-    private fun lineSeparation() {
-        println("-------------------------------------------------------")
+        narrator.narrate(this)
     }
 
     fun retrieveUserAction() {
-        print("Action> ")
+        narrator.waitUserInput()
         var operation = readLine();
         if (operation != null) {
-            var input = CommandInterpreter().prepare(operation)
-            if (input.act(this)) {
-                println("Result> Done ${input.verb}")
-            } else {
-                println("Result> I don't understand, please retry with a valid command")
+            var input = UserInput.prepare(operation)
+            var badUserInputException: BadUserInputException? = null;
+            try {
+                input.act(this)
+            } catch(e: BadUserInputException) {
+                badUserInputException = e
             }
+            narrator.inputValidation(input, badUserInputException)
         }
     }
 
     fun finishDungeon() {
-        print("Well done! It's finished for today!")
+        narrator.finishDungeon()
     }
 
     fun take(item: EmbeddableItem) {
