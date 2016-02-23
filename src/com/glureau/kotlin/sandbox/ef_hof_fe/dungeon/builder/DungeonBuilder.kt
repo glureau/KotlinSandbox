@@ -37,13 +37,13 @@ data class DungeonBuilder(val name: String, val init: DungeonBuilder.() -> Any =
         return this
     }
 
-    fun room(narrative: String, init: RoomBuilder.() -> Any = {}): RoomBuilder {
+    fun room(narrative: String = "undefined", init: RoomBuilder.() -> Any = {}): RoomBuilder {
         val room = RoomBuilder(narrative, init)
         roomBuilders.add(room)
         return room
     }
 
-    fun door(narrative: String, roomA: RoomBuilder, roomB: RoomBuilder, dir: Direction, validation: Door.(Room, Room) -> Boolean): DoorBuilder {
+    fun door(narrative: String, roomA: RoomBuilder, roomB: RoomBuilder, dir: Direction, validation: Door.(Room, Room) -> Boolean = { src, dest -> true }): DoorBuilder {
         var doorBuilder = DoorBuilder(narrative, roomA, roomB, dir, validation)
         doorBuilders.add(doorBuilder)
         return doorBuilder

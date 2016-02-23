@@ -2,7 +2,6 @@ package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon
 
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder.DungeonBuilder
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Direction
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.user.User
 
 object Main {
@@ -11,21 +10,21 @@ object Main {
 
         val dungeon = DungeonBuilder("Dark Dungeon", {
             val key = embeddableItem("key", "A key")
-            val r1 = room("You are in a large corridor of gray stones, covered with mold.", {
+            val startRoom = room("You are in a large corridor of gray stones, covered with mold.", {
                 breakerItem("black stone", "a black stone on the ground")
                 breakableItem("barrel", "a barrel with some mysterious engraving on it", listOf(
                         key,
-                        hiddenEmbeddableItem("paper", "an old manuscript in the barrel rubble where is written: 'this is THE key'")))
+                        hiddenItem("paper", "an old manuscript in the barrel rubble where is written: 'this is THE key'")))
             })
-            val r2 = room("You entered in a great room with white and black stones everywhere.", {
+            val middleRoom = room("You entered in a huge room with white and black stones everywhere.", {
                 item("yellow stone", "There is a yellow stone on the ground")
             })
-            door("a big dark door", r1, r2, Direction.NORTH, { roomSrc, roomDest -> user.has(key)})
+            val endRoom = room()
 
-            val endRoom = room("Well done! You're in the last room of this dungeon.")
-            door("THE last door", r2, endRoom, Direction.EAST, { roomSrc, roomDest -> user.has(key)})
+            door("a large wood door", startRoom, middleRoom, Direction.NORTH, { roomSrc, roomDest -> user.has(key)})
+            door("THE last door (you cannot bring your stuff to travel)", middleRoom, endRoom, Direction.EAST, { roomSrc, roomDest -> user.inventory.isEmpty()})
 
-            startsWith(r1)
+            startsWith(startRoom)
             endsWith(endRoom)
         }).build()
 

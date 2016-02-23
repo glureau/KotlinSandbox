@@ -56,22 +56,22 @@ data class UserInput(val verb: String, val directObject: String?) {
 
     private inline fun <reified T> typedItem(user: User): T? {
         directObject ?: return null
-        return items(user).filter { it is T }.toTypedArray().minByWithLimit({ levenshteinCaseInsensitive(it.name(), directObject) }, LEVENSHTEIN_THRESHOLD) as T?
+        return items(user).filter { it is T }.toTypedArray().minByWithLimit({ levenshteinCaseInsensitive(it.name, directObject) }, LEVENSHTEIN_THRESHOLD) as T?
     }
 
     private inline fun <reified T> typedItemInRoom(user: User): T? {
         directObject ?: return null
-        return user.currentRoom()?.items?.filter { it is T }?.toTypedArray()?.minByWithLimit({ levenshteinCaseInsensitive(it.name(), directObject) }, LEVENSHTEIN_THRESHOLD) as T?
+        return user.currentRoom()?.items?.filter { it is T }?.toTypedArray()?.minByWithLimit({ levenshteinCaseInsensitive(it.name, directObject) }, LEVENSHTEIN_THRESHOLD) as T?
     }
 
     private inline fun <reified T> typedItemInInventory(user: User): T? {
         directObject ?: return null
-        return user.inventory.filter { it is T }.toTypedArray().minByWithLimit({ levenshteinCaseInsensitive(it.name(), directObject) }, LEVENSHTEIN_THRESHOLD) as T?
+        return user.inventory.filter { it is T }.toTypedArray().minByWithLimit({ levenshteinCaseInsensitive(it.name, directObject) }, LEVENSHTEIN_THRESHOLD) as T?
     }
 
     fun item(user: User): Item? {
         directObject ?: return null
-        return items(user).toTypedArray().minByWithLimit({ levenshteinCaseInsensitive(it.name(), directObject) }, LEVENSHTEIN_THRESHOLD)
+        return items(user).toTypedArray().minByWithLimit({ levenshteinCaseInsensitive(it.name, directObject) }, LEVENSHTEIN_THRESHOLD)
     }
 
     fun items(user: User): List<Item> {

@@ -33,7 +33,7 @@ class User() {
         println()
         lineSeparation()
         if (inventory.isNotEmpty()) {
-            println("Inventory: ${inventory.joinToString(separator = ", ", transform = { it.name() })}")
+            println("Inventory: ${inventory.joinToString(separator = ", ", transform = { it.name })}")
             lineSeparation()
         }
 
@@ -45,11 +45,11 @@ class User() {
             println("The room contains:")
             for (item in currentRoom.items) {
                 if (item is EmbeddableItem) {
-                    println("- ${item.narrative()} (${UserAction.TAKE.defaultActionName} ${item.name()}?)")
+                    println("- ${item.narrative} (${UserAction.TAKE.defaultActionName} ${item.name}?)")
                 } else if (item is BreakableItem) {
-                    println("- ${item.narrative()} (${UserAction.BREAK.defaultActionName} ${item.name()}?)")
+                    println("- ${item.narrative} (${UserAction.BREAK.defaultActionName} ${item.name}?)")
                 } else {
-                    println("- ${item.narrative()}")
+                    println("- ${item.narrative}")
                 }
             }
             lineSeparation()

@@ -7,14 +7,8 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.user.User
  * Created by Greg on 20/02/2016.
  * @param dir ordinal direction from the left room to the right room.
  */
-class Door(val narrative: String = "undefined", val left: Room, val right: Room, val dir: Direction, val validation: Door.(roomSrc: Room, roomDest: Room) -> Boolean = { src, dest -> true }) : Item {
-    override fun name(): String {
-        return "not used"
-    }
-
-    override fun narrative(): String {
-        return narrative
-    }
+class Door(override val narrative: String = "undefined", val left: Room, val right: Room, val dir: Direction, val validation: Door.(roomSrc: Room, roomDest: Room) -> Boolean) : Item {
+    override val name ="not used"
 
     fun narrative(user: User): String {
         val currentRoom = user.currentRoom()

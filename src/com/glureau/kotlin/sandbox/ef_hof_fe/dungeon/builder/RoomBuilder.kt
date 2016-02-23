@@ -11,9 +11,9 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
  *
  * Created by Greg on 24/01/2016.
  */
-data class RoomBuilder(val narrative: String = "undefined", val init: RoomBuilder.() -> Any = {}) {
+data class RoomBuilder(val narrative: String, val init: RoomBuilder.() -> Any = {}) {
     companion object {
-        val NOT_INITIALIZED = RoomBuilder()
+        val NOT_INITIALIZED = RoomBuilder("undefined")
     }
 
     val items: MutableList<Item> = arrayListOf()
@@ -24,15 +24,23 @@ data class RoomBuilder(val narrative: String = "undefined", val init: RoomBuilde
     }
 
     fun item(name: String, narrative: String): Item {
-        var item = ItemImpl(name, narrative)
+        var item = hiddenItem(name, narrative)
         items.add(item)
         return item
     }
 
+    fun hiddenItem(name: String, narrative: String): Item {
+        return ItemImpl(name, narrative)
+    }
+
     fun embeddableItem(name: String, narrative: String): EmbeddableItem {
-        var item = EmbeddableItem(ItemImpl(name, narrative))
+        var item = hiddenEmbeddableItem(name, narrative)
         items.add(item)
         return item
+    }
+
+    fun hiddenEmbeddableItem(name: String, narrative: String): EmbeddableItem {
+        return EmbeddableItem(ItemImpl(name, narrative))
     }
 
     fun breakerItem(name: String, narrative: String): BreakerItem {
@@ -45,10 +53,6 @@ data class RoomBuilder(val narrative: String = "undefined", val init: RoomBuilde
         var item = BreakableItem(ItemImpl(name, narrative), itemsInside)
         items.add(item)
         return item
-    }
-
-    fun hiddenEmbeddableItem(name: String, narrative: String): Item {
-        return EmbeddableItem(ItemImpl(name, narrative))
     }
 
     fun add(door: DoorBuilder): RoomBuilder {

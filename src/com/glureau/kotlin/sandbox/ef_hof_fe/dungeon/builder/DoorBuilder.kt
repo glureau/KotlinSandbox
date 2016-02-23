@@ -10,7 +10,7 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.impl.RoomImpl
  * Created by Greg on 20/02/2016.
  * @param dir ordinal direction from the left room to the right room.
  */
-class DoorBuilder(val narrative: String = "undefined", val leftBuilder: RoomBuilder, val rightBuilder: RoomBuilder, val dir: Direction, val validation: Door.(roomSrc: Room, roomDest: Room) -> Boolean = { src, dest -> true }) {
+class DoorBuilder(val narrative: String = "undefined", val leftBuilder: RoomBuilder, val rightBuilder: RoomBuilder, val dir: Direction, val validation: Door.(roomSrc: Room, roomDest: Room) -> Boolean) {
 
     fun build(rooms: Map<RoomBuilder, MutableRoom>): Door {
         if (rooms.contains(leftBuilder) && rooms.contains(rightBuilder)) {

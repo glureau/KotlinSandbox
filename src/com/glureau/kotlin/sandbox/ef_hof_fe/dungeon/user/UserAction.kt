@@ -61,7 +61,7 @@ enum class UserAction(val defaultActionName: String, val actionNames: Set<String
                 return true;
             }
         }
-        println("Cannot break ${item?.name()} with ${breakerItem?.name()}")
+        println("Cannot break ${item?.name} with ${breakerItem?.name}")
         return false
     }
 }
