@@ -18,16 +18,16 @@ data class RoomImpl(
         items.add(item)
     }
 
-    override fun remove(item: Item) {
-        items.remove(item)
+    override fun remove(item: Item): Boolean {
+        return items.remove(item)
     }
 
     override fun add(door: Door) {
         doors.add(door)
     }
 
-    override fun remove(door: Door) {
-        doors.remove(door)
+    override fun remove(door: Door): Boolean {
+        return doors.remove(door)
     }
 }
 

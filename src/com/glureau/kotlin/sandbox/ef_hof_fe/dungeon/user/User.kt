@@ -7,6 +7,7 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Room
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
 
 /**
+ * Game progression pointer representing the user.
  *
  * Created by Greg on 31/01/2016.
  */
@@ -14,7 +15,7 @@ class User() {
 
     private var currentDungeon: Dungeon? = null
     private var currentRoom: Room? = null
-    private var inventory: MutableList<EmbeddableItem> = arrayListOf()
+    var inventory: MutableList<EmbeddableItem> = arrayListOf()
 
 
     fun startDungeon(dungeon: Dungeon) {
@@ -31,7 +32,7 @@ class User() {
         println()
         lineSeparation()
         if (inventory.isNotEmpty()) {
-            println("Inventory: ${inventory.joinToString(separator = ",", transform = { it.name() })}")
+            println("Inventory: ${inventory.joinToString(separator = ", ", transform = { it.name() })}")
             lineSeparation()
         }
 
@@ -43,7 +44,7 @@ class User() {
             println("The room contains:")
             for (item in currentRoom.items) {
                 if (item is EmbeddableItem) {
-                    println("- ${item.name()} (${UserAction.TAKE.defaultAction} ?)")
+                    println("- ${item.name()} (${UserAction.TAKE.defaultActionName} ?)")
                 } else {
                     println("- ${item.name()}")
                 }
@@ -82,6 +83,10 @@ class User() {
 
     fun take(item: EmbeddableItem) {
         inventory.add(item)
+    }
+
+    fun drop(item: EmbeddableItem): Boolean {
+        return inventory.remove(item)
     }
 
     fun currentRoom(): Room? {

@@ -14,8 +14,9 @@ class DoorBuilder(val narrative: String = "undefined", val leftBuilder: RoomBuil
 
     fun build(rooms: Map<RoomBuilder, MutableRoom>): Door {
         if (rooms.contains(leftBuilder) && rooms.contains(rightBuilder)) {
-            val left = rooms.getOrImplicitDefault(leftBuilder)
-            val right = rooms.getOrImplicitDefault(rightBuilder)
+            val left = rooms.getOrElse(leftBuilder, {null})
+            val right = rooms.getOrElse(rightBuilder, {null})
+            if (left == null || right == null) error("Left and Right should not be null")
             val door = Door(narrative, left, right, dir, validation)
             left.add(door)
             right.add(door)

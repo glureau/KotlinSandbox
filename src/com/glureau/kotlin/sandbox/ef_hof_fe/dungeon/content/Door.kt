@@ -13,7 +13,7 @@ class Door(val narrative: String = "undefined", val left: Room, val right: Room,
     }
 
     fun narrative(user: User): String {
-        var d: Direction? = null
+        var d: Direction?
         if (user.currentRoom() == left) {
             d = dir
         } else if (user.currentRoom() == right) {
@@ -29,7 +29,7 @@ class Door(val narrative: String = "undefined", val left: Room, val right: Room,
         var roomSrc: Room? = user.currentRoom()
 
         // Determine the destination room
-        var roomDest: Room? = null
+        var roomDest: Room?
         if (roomSrc == left) {
             roomDest = right
         } else if (roomSrc == right) {

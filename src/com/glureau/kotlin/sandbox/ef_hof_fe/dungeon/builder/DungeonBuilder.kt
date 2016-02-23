@@ -7,7 +7,7 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
 import java.util.*
 
 /**
- *
+ * Tooling class to improve the code readability when using this builder.
  * Created by Greg on 24/01/2016.
  */
 data class DungeonBuilder(val name: String, val init: DungeonBuilder.() -> Any = {}) {

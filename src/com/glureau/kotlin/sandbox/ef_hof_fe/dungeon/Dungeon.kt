@@ -6,7 +6,7 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Room
  *
  * Created by Greg on 24/01/2016.
  */
-public class Dungeon(val name: String, val rooms: Set<Room>, val startRoom: Room, val endRoom: Room) {
+class Dungeon(val name: String, val rooms: Set<Room>, val startRoom: Room, val endRoom: Room) {
 
     fun startRoom(): Room {
         return startRoom
