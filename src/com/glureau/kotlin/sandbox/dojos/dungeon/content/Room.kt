@@ -1,4 +1,4 @@
-package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content
+package com.glureau.kotlin.sandbox.dojos.dungeon.content
 
 /**
  * A chamber in the dungeon.

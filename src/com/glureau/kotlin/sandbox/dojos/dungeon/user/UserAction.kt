@@ -1,9 +1,9 @@
-package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.user
+package com.glureau.kotlin.sandbox.dojos.dungeon.user
 
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder.MutableRoom
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.BreakerItem
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
+import com.glureau.kotlin.sandbox.dojos.dungeon.builder.MutableRoom
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.Item
+import com.glureau.kotlin.sandbox.dojos.dungeon.interaction.BreakerItem
+import com.glureau.kotlin.sandbox.dojos.dungeon.interaction.EmbeddableItem
 
 /**
  * All actions a user can do

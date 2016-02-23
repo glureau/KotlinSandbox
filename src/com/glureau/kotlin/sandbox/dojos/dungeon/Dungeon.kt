@@ -1,6 +1,6 @@
-package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon
+package com.glureau.kotlin.sandbox.dojos.dungeon
 
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Room
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.Room
 
 /**
  *

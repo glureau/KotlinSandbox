@@ -1,11 +1,11 @@
-package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder
+package com.glureau.kotlin.sandbox.dojos.dungeon.builder
 
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.impl.ItemImpl
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.impl.RoomImpl
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.BreakableItem
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.BreakerItem
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.Item
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.impl.ItemImpl
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.impl.RoomImpl
+import com.glureau.kotlin.sandbox.dojos.dungeon.interaction.BreakableItem
+import com.glureau.kotlin.sandbox.dojos.dungeon.interaction.BreakerItem
+import com.glureau.kotlin.sandbox.dojos.dungeon.interaction.EmbeddableItem
 
 /**
  *

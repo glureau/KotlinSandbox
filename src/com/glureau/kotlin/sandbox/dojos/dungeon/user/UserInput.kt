@@ -1,9 +1,9 @@
-package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.user
+package com.glureau.kotlin.sandbox.dojos.dungeon.user
 
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Direction
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.BreakableItem
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.Direction
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.Item
+import com.glureau.kotlin.sandbox.dojos.dungeon.interaction.BreakableItem
+import com.glureau.kotlin.sandbox.dojos.dungeon.interaction.EmbeddableItem
 import java.util.*
 
 /**

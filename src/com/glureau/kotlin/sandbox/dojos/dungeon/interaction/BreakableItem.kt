@@ -1,6 +1,6 @@
-package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction
+package com.glureau.kotlin.sandbox.dojos.dungeon.interaction
 
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.Item
 
 /**
  * Item you can break, available in the user inventory.

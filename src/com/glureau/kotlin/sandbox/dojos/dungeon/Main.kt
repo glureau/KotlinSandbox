@@ -1,8 +1,8 @@
-package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon
+package com.glureau.kotlin.sandbox.dojos.dungeon
 
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder.DungeonBuilder
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Direction
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.user.User
+import com.glureau.kotlin.sandbox.dojos.dungeon.builder.DungeonBuilder
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.Direction
+import com.glureau.kotlin.sandbox.dojos.dungeon.user.User
 
 object Main {
     @JvmStatic fun main(args: Array<String>) {
@@ -21,8 +21,8 @@ object Main {
             })
             val endRoom = room()
 
-            door("a large wood door", startRoom, middleRoom, Direction.NORTH, { roomSrc, roomDest -> user.has(key)})
-            door("THE last door (you cannot bring your stuff to travel)", middleRoom, endRoom, Direction.EAST, { roomSrc, roomDest -> user.inventory.isEmpty()})
+            door("a large wood door", startRoom, middleRoom, Direction.NORTH, { roomSrc, roomDest -> user.has(key) })
+            door("THE last door (you cannot bring your stuff to travel)", middleRoom, endRoom, Direction.EAST, { roomSrc, roomDest -> user.inventory.isEmpty() })
 
             startsWith(startRoom)
             endsWith(endRoom)

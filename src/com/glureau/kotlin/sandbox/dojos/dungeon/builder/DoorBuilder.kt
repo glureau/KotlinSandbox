@@ -1,9 +1,9 @@
-package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder
+package com.glureau.kotlin.sandbox.dojos.dungeon.builder
 
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Direction
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Door
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Room
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.impl.RoomImpl
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.Direction
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.Door
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.Room
+import com.glureau.kotlin.sandbox.dojos.dungeon.content.impl.RoomImpl
 
 /**
  *

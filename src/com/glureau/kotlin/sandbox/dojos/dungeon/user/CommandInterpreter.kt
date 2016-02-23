@@ -1,4 +1,4 @@
-package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.user
+package com.glureau.kotlin.sandbox.dojos.dungeon.user
 
 /**
  *
@@ -15,6 +15,6 @@ class CommandInterpreter() {
         if (separatorPos > 0) {
             directObject = command.trim().substringAfter(COMMAND_SEPARATOR);
         }
-        return  UserInput(verb, directObject)
+        return UserInput(verb, directObject)
     }
 }
