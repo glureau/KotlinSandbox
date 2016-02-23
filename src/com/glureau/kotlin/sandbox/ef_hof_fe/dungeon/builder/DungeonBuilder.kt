@@ -3,6 +3,7 @@ package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.Dungeon
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.*
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.impl.ItemImpl
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.BreakableItem
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
 import java.util.*
 
@@ -48,8 +49,16 @@ data class DungeonBuilder(val name: String, val init: DungeonBuilder.() -> Any =
         return doorBuilder
     }
 
-    fun item(name: String, narrative: String): Item {
+    fun embeddableItem(name: String, narrative: String): Item {
         return EmbeddableItem(ItemImpl(name, narrative))
+    }
+
+    fun breakableItem(name: String, narrative: String, itemsInside : Collection<Item> = listOf()): Item {
+        return BreakableItem(ItemImpl(name, narrative), itemsInside)
+    }
+
+    fun item(name: String, narrative: String): Item {
+        return ItemImpl(name, narrative)
     }
 
     fun build(): Dungeon {

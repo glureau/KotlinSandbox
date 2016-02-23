@@ -1,8 +1,8 @@
 package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.impl
 
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder.MutableRoom
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Door
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
-import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder.MutableRoom
 
 /**
  *
@@ -13,9 +13,12 @@ data class RoomImpl(
         override val items: MutableList<Item> = arrayListOf(),
         override val doors: MutableList<Door> = arrayListOf()
 ) : MutableRoom {
-
     override fun add(item: Item) {
         items.add(item)
+    }
+
+    override fun add(itemCollection: Collection<Item>) {
+        items.addAll(itemCollection)
     }
 
     override fun remove(item: Item): Boolean {

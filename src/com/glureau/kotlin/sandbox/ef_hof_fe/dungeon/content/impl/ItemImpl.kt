@@ -12,4 +12,8 @@ data class ItemImpl(
     override fun name(): String {
         return name
     }
+
+    override fun narrative(): String {
+        return narrative
+    }
 }

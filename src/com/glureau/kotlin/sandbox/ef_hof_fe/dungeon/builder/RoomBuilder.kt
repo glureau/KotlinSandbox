@@ -3,6 +3,8 @@ package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.builder
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.impl.ItemImpl
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.impl.RoomImpl
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.BreakableItem
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.BreakerItem
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
 
 /**
@@ -22,9 +24,31 @@ data class RoomBuilder(val narrative: String = "undefined", val init: RoomBuilde
     }
 
     fun item(name: String, narrative: String): Item {
+        var item = ItemImpl(name, narrative)
+        items.add(item)
+        return item
+    }
+
+    fun embeddableItem(name: String, narrative: String): EmbeddableItem {
         var item = EmbeddableItem(ItemImpl(name, narrative))
         items.add(item)
         return item
+    }
+
+    fun breakerItem(name: String, narrative: String): BreakerItem {
+        var item = BreakerItem(ItemImpl(name, narrative))
+        items.add(item)
+        return item
+    }
+
+    fun breakableItem(name: String, narrative: String, itemsInside : Collection<Item> = listOf()): BreakableItem {
+        var item = BreakableItem(ItemImpl(name, narrative), itemsInside)
+        items.add(item)
+        return item
+    }
+
+    fun hiddenEmbeddableItem(name: String, narrative: String): Item {
+        return EmbeddableItem(ItemImpl(name, narrative))
     }
 
     fun add(door: DoorBuilder): RoomBuilder {

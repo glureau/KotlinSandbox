@@ -11,11 +11,10 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Room
 interface MutableRoom : Room {
 
     fun add(item: Item)
-
-    fun remove(item: Item) : Boolean
+    fun add(itemCollection: Collection<Item>)
+    fun remove(item: Item): Boolean
 
     fun add(door: Door)
-
-    fun remove(door: Door) : Boolean
+    fun remove(door: Door): Boolean
 }
 

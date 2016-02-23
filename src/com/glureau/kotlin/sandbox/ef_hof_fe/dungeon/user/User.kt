@@ -4,6 +4,7 @@ import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.Dungeon
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Door
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Room
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.BreakableItem
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
 
 /**
@@ -44,15 +45,17 @@ class User() {
             println("The room contains:")
             for (item in currentRoom.items) {
                 if (item is EmbeddableItem) {
-                    println("- ${item.name()} (${UserAction.TAKE.defaultActionName} ?)")
+                    println("- ${item.narrative()} (${UserAction.TAKE.defaultActionName} ${item.name()}?)")
+                } else if (item is BreakableItem) {
+                    println("- ${item.narrative()} (${UserAction.BREAK.defaultActionName} ${item.name()}?)")
                 } else {
-                    println("- ${item.name()}")
+                    println("- ${item.narrative()}")
                 }
             }
             lineSeparation()
         }
         for (door in currentRoom.doors) {
-            println(door.narrative(this))
+            println("${door.narrative(this)} (${UserAction.GO.defaultActionName} ${door.directionFrom(currentRoom)}?)")
         }
         if (currentRoom.doors.isNotEmpty()) {
             lineSeparation()
@@ -66,18 +69,17 @@ class User() {
     fun retrieveUserAction() {
         print("Action> ")
         var operation = readLine();
-        var operationInterpreted = false;
         if (operation != null) {
-            operationInterpreted = CommandInterpreter().interpret(this, operation)
-        }
-
-        if (!operationInterpreted) {
-            println("Please try a valid command")
+            var input = CommandInterpreter().prepare(operation)
+            if (input.act(this)) {
+                println("Result> Done ${input.verb}")
+            } else {
+                println("Result> I don't understand, please retry with a valid command")
+            }
         }
     }
 
     fun finishDungeon() {
-        narrate()
         print("Well done! It's finished for today!")
     }
 

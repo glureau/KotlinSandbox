@@ -6,4 +6,5 @@ package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content
  */
 interface Item {
     fun name(): String
+    fun narrative(): String
 }

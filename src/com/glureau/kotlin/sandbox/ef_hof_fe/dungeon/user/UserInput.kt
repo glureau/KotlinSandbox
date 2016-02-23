@@ -2,6 +2,7 @@ package com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.user
 
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Direction
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.content.Item
+import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.BreakableItem
 import com.glureau.kotlin.sandbox.ef_hof_fe.dungeon.interaction.EmbeddableItem
 import java.util.*
 
@@ -32,9 +33,40 @@ data class UserInput(val verb: String, val directObject: String?) {
         return typedItem<EmbeddableItem>(user)
     }
 
+    fun embeddableItemInRoom(user: User): EmbeddableItem? {
+        return typedItemInRoom<EmbeddableItem>(user)
+    }
+
+    fun embeddableItemInInventory(user: User): EmbeddableItem? {
+        return typedItemInInventory<EmbeddableItem>(user)
+    }
+
+    fun breakableItem(user: User): BreakableItem? {
+        return typedItem<BreakableItem>(user)
+    }
+
+    fun breakableItemInRoom(user: User): BreakableItem? {
+        return typedItemInRoom<BreakableItem>(user)
+    }
+
+    fun breakableItemInInventory(user: User): BreakableItem? {
+        return typedItemInInventory<BreakableItem>(user)
+    }
+
+
     private inline fun <reified T> typedItem(user: User): T? {
         directObject ?: return null
         return items(user).filter { it is T }.toTypedArray().minByWithLimit({ levenshteinCaseInsensitive(it.name(), directObject) }, LEVENSHTEIN_THRESHOLD) as T?
+    }
+
+    private inline fun <reified T> typedItemInRoom(user: User): T? {
+        directObject ?: return null
+        return user.currentRoom()?.items?.filter { it is T }?.toTypedArray()?.minByWithLimit({ levenshteinCaseInsensitive(it.name(), directObject) }, LEVENSHTEIN_THRESHOLD) as T?
+    }
+
+    private inline fun <reified T> typedItemInInventory(user: User): T? {
+        directObject ?: return null
+        return user.inventory.filter { it is T }.toTypedArray().minByWithLimit({ levenshteinCaseInsensitive(it.name(), directObject) }, LEVENSHTEIN_THRESHOLD) as T?
     }
 
     fun item(user: User): Item? {
